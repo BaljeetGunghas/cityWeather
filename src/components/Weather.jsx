@@ -33,13 +33,24 @@ const Weather = () => {
     hour < 18 ? "Good Afternoon 🌤️" :
     "Good Evening 🌙";
 
-  const tip = [
-    "Stay hydrated and wear sunscreen! 🧴",
-    "A perfect day for a walk 🚶‍♂️",
-    "Don’t forget your umbrella if you’re heading out! ☔",
-    "Check the sky tonight — it might be a stargazing night 🌌",
-    "Keep an eye on the wind chill today 🌬️",
-  ];
+    const tip = [
+      "Stay hydrated and wear sunscreen! 🧴",
+      "A perfect day for a walk 🚶‍♂️",
+      "Don’t forget your umbrella if you’re heading out! ☔",
+      "Check the sky tonight — it might be a stargazing night 🌌",
+      "Keep an eye on the wind chill today 🌬️",
+      "Layer up! It's going to be chilly outside 🧥",
+      "Watch out for slippery roads — drive safe! 🚗",
+      "Great day for a picnic in the park 🧺",
+      "Air quality is low — consider wearing a mask 😷",
+      "A hot drink might be just what you need today ☕",
+      "Storm incoming — stay indoors if possible! ⛈️",
+      "Sunny vibes ahead — grab your shades 🕶️",
+      "Stay indoors and cozy up with a good book 📚",
+      "Windy weather today — secure loose items outside 🌪️",
+      "High UV levels — avoid direct sunlight during noon 🔆",
+    ];
+    
   const randomTip = tip[Math.floor(Math.random() * tip.length)];
 
   return (
