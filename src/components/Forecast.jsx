@@ -1,35 +1,45 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useWeather } from "../hooks/useWeather";
 import { DateTime } from "luxon";
-import { WiHumidity } from "react-icons/wi";
-import { FaWind } from "react-icons/fa";
-import { useDarkMode } from "../context/DarkModeContext";
+import { WiHumidity, WiStrongWind, WiDaySunny, WiCloudy } from "react-icons/wi";
+
 const Forecast = () => {
   const { fiveDayForecast, tempType, setTempType } = useWeather();
   const [formatType, setFormatType] = useState(true);
-  const { darkMode } = useDarkMode();
+
   const twentyFourForecast = fiveDayForecast
     .slice(0, 9)
-    .filter((data, index) => index % 2 === 0);
-  const totalForecast = fiveDayForecast.filter(
-    (data, index) => index % 8 === 0
-  );
+    .filter((_, index) => index % 2 === 0);
+  const totalForecast = fiveDayForecast.filter((_, index) => index % 8 === 0);
+
+  const getWeatherIcon = (description) => {
+    const desc = description.toLowerCase();
+    if (desc.includes("clear"))
+      return <WiDaySunny className="text-yellow-400 text-5xl" />;
+    if (desc.includes("cloud"))
+      return <WiCloudy className="text-gray-500 text-5xl" />;
+    // Add more mappings as needed
+    return <WiDaySunny className="text-blue-400 text-5xl" />;
+  };
+
+  const convertTemp = (kelvinTemp) => {
+    return tempType
+      ? `${Math.round(kelvinTemp - 273.15)}°C` // Convert Kelvin to Celsius
+      : `${Math.round((kelvinTemp - 273.15) * 1.8 + 32)}°F`; // Convert Kelvin to Fahrenheit
+  };
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-3">
-        <h1 className="text-2xl lg:text-3xl w-2/6 lg:w-1/6 font-semibold">
-          Forecast
-        </h1>
-        <div className="flex justify-start w-3/6 lg:w-4/6 text-base lg:text-xl gap-2 lg:gap-4">
+      <div className="flex justify-between items-center  text-black dark:text-white">
+        <h1 className="text-2xl lg:text-3xl font-bold">Forecast</h1>
+
+        <div className="flex items-center gap-4 text-sm lg:text-base">
           <button
             onClick={() => setFormatType(true)}
             className={`${
               formatType
-                ? `${
-                    darkMode ? "text-white underline" : "text-black underline"
-                  } font-semibold`
-                : `${darkMode ? "text-gray-500" : "text-gray-400"}`
+                ? "underline font-semibold"
+                : "text-gray-500 dark:text-gray-500"
             }`}
           >
             24 Hours
@@ -38,108 +48,72 @@ const Forecast = () => {
             onClick={() => setFormatType(false)}
             className={`${
               !formatType
-                ? `${
-                    darkMode ? "text-white underline" : "text-black underline"
-                  } font-semibold`
-                : `${darkMode ? "text-gray-500" : "text-gray-400"}`
+                ? "underline font-semibold"
+                : "text-gray-500 dark:text-gray-500"
             }`}
           >
             5 Days
           </button>
         </div>
-        <div className="w-1/6 flex justify-end gap-4 text-base lg:text-xl items-center font-semibold ">
+
+        <div className="flex gap-3 text-sm lg:text-base">
           <p
             onClick={() => setTempType(true)}
-            className={`${
+            className={`h-8 w-8 grid place-items-center text-sm rounded-full cursor-pointer ${
               tempType
-                ? `${
-                    darkMode ? "bg-gray-900 text-white" : "bg-black text-white"
-                  }`
-                : `${darkMode ? "bg-gray-200 text-black" : "bg-white"}`
-            } h-10 rounded-full px-3 py-2 hover:cursor-pointer`}
+                ? "bg-black text-white dark:bg-white dark:text-black "
+                : "bg-gray-100 text-black dark:bg-black dark:text-white"
+            } `}
           >
             °C
           </p>
           <p
             onClick={() => setTempType(false)}
-            className={`${
+            className={`h-8 w-8 grid place-items-center rounded-full cursor-pointer ${
               !tempType
-                ? `${
-                    darkMode ? "bg-gray-900 text-white" : "bg-black text-white"
-                  }`
-                : `${darkMode ? "bg-gray-200 text-black" : "bg-white"}`
-            } h-10 rounded-full px-3.5 py-2 hover:cursor-pointer`}
+                ? "bg-black text-white dark:bg-white dark:text-black "
+                : "bg-gray-100 text-black dark:bg-black dark:text-white"
+            } `}
           >
             °F
           </p>
         </div>
       </div>
-      <div className="flex flex-wrap gap-4 w-full">
+
+      <div className="grid grid-cols-2 xl:grid-cols-5 gap-3 mt-5">
         {(formatType ? twentyFourForecast : totalForecast).map((day, index) => {
-          const timestamp = day.dt;
-          const dateTime = DateTime.fromSeconds(timestamp);
-          const formattedDate = dateTime.toFormat("dd MMMM");
-          const formattedTime = dateTime.toFormat("hh:mm a");
-          const dayOfWeek = dateTime.toFormat("cccc");
-          const tempCel = Math.trunc(day.main.temp - 273.15);
-          const tempFah = Math.trunc((day.main.temp - 273.15) * 1.8 + 32);
-          const humidity = day.main.humidity;
-          const wind = day.wind.speed.toFixed(1);
-          const desc = day.weather[0].description;
+          const dt = DateTime.fromSeconds(day.dt);
+          const dateLabel = formatType
+            ? `${dt.toFormat("dd MMM")}, ${dt.toFormat("hh:mm a")}`
+            : dt.toFormat("cccc");
+
+          const temp = convertTemp(day.main.temp); // Convert the temperature using the helper function
 
           return (
             <div
               key={index}
-              className="flex group flex-col bg-white dark:bg-slate-900 p-2 rounded-2xl lg:max-w-[174px] w-full text-base justify-center items-center shadow-lg hover:shadow-2xl"
+              className="bg-white text-black dark:text-white dark:bg-slate-800 shadow-lg hover:shadow-2xl transition transform hover:scale-105 rounded-2xl p-4 flex flex-col items-center w-full sm:w-[45%] md:w-[30%] lg:w-[154px]"
             >
-              <div>
-                <p>
-                  {formatType ? (
-                    <>
-                      {formattedDate}
-                      {", "}
-                      {formattedTime}
-                    </>
-                  ) : (
-                    dayOfWeek
-                  )}
+              <p className="text-sm text-center mb-1">{dateLabel}</p>
+              <div className="flex items-center justify-center text-3xl mb-2">
+                <span>{temp}</span>
+              </div>
+              <div className="mb-2">
+                {getWeatherIcon(day.weather[0].description)}
+              </div>
+              <p className="text-sm capitalize text-center dark:text-white text-gray-600 group-hover:hidden">
+                {day.weather[0].description}
+              </p>
+              <div className="hidden group-hover:flex flex-col text-xs gap-y-1 text-gray-500">
+                <p className="flex items-center gap-1">
+                  <WiHumidity className="text-blue-400 text-lg" />{" "}
+                  {day.main.humidity}%
+                </p>
+                <p className="flex items-center gap-1">
+                  <WiStrongWind className="text-blue-300 dark:text-white text-lg" />{" "}
+                  {day.wind.speed.toFixed(1)} km/h
                 </p>
               </div>
-              <div className="flex items-center text-3xl">
-                <p className="mt-2">
-                  {tempType ? `${tempCel}°C` : `${tempFah}°F`}
-                </p>
-                <img
-                  src={`https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
-                  alt={day.weather[0].description}
-                  className="w-16"
-                />
-              </div>
-              <p className="group-hover:hidden">{day.weather[0].description}</p>
-              <div className="hidden group-hover:flex gap-x-4">
-                {formatType ? (
-                  <p className="flex">
-                    <WiHumidity className="text-xl text-blue-500" /> {humidity}%{" "}
-                  </p>
-                ) : (
-                  <div>
-                    {tempType ? (
-                      <>
-                        <span className="flex">{desc}</span>
-                      </>
-                    ) : (
-                      <>
-                        <span className="flex">{desc}</span>
-                      </>
-                    )}
-                  </div>
-                )}
-                {formatType ? (
-                  <p className="flex gap-x-1 ">
-                    <FaWind className="text-blue-300" /> {wind}km/h
-                  </p>
-                ) : null}
-              </div>{" "}
             </div>
           );
         })}

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import 'leaflet/dist/leaflet.css';
+import PropTypes from 'prop-types';
 import L from 'leaflet';
 import {
   MapContainer,
@@ -11,7 +12,7 @@ import {
 } from "react-leaflet";
 import { useWeather } from "../hooks/useWeather";
 
-function Map() {
+const  Map =() => {
   const { lat, lon, weatherData, getWeather } = useWeather();
   const [mapCenter, setMapCenter] = useState([lat, lon]);
 
@@ -23,7 +24,6 @@ function Map() {
     // Set the path for Leaflet icons
     L.Icon.Default.imagePath = '/leaflet/images/';
   }, []);
-
   function ChangeMapView({ center }) {
     const map = useMap();
     useEffect(() => {
@@ -31,6 +31,11 @@ function Map() {
     }, [map, center]);
     return null;
   }
+
+  ChangeMapView.propTypes = {
+    center: PropTypes.arrayOf(PropTypes.number).isRequired,
+  };
+  
 
   function LocationMarker() {
     useMapEvents({
@@ -52,6 +57,7 @@ function Map() {
       zoom={13}
       style={{ height: "100%", width: "100%" }}
     >
+      
       <ChangeMapView center={mapCenter} />
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -60,7 +66,7 @@ function Map() {
       {weatherData && (
         <Marker position={mapCenter}>
           <Popup>
-            <div className="flex flex-col text-xl ">
+            <div className="flex flex-col text-xl bg-red-300">
               {weatherData.name || "No Data"},{" "}
               {weatherData.sys.country || "No Data"}
               <br />

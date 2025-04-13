@@ -1,38 +1,42 @@
-import React, { useState } from "react";
-import { FaSquareGithub } from "react-icons/fa6";
-import { IoLogoLinkedin } from "react-icons/io5";
-import { FaSquareXTwitter } from "react-icons/fa6";
+import { FaGithubSquare } from "react-icons/fa"; // Updated GitHub icon
+import { FaLinkedin } from "react-icons/fa"; // Updated LinkedIn icon
+import { FaTwitter } from "react-icons/fa"; // Corrected Twitter icon
 import { MdDarkMode } from "react-icons/md";
 import { MdOutlineLightMode } from "react-icons/md";
 import { useDarkMode } from "../context/DarkModeContext";
+
 const SocialLinks = () => {
-  const linkedinUrl = "https://www.linkedin.com/in/avinashs46/";
-  const githubUrl = "https://github.com/avinashsingh108";
-  const twitterUrl = "https://x.com/_Avi108_";
+  const linkedinUrl = "https://www.linkedin.com/in/dev-baljeet-gunghas-b6698421b/";
+  const githubUrl = "https://github.com/BaljeetGunghas";
+  const twitterUrl = "https://x.com/BaljeetGunghas";
   const { darkMode, toggleMode } = useDarkMode();
   
   const handleClick = (url) => {
     window.open(url, "_blank", "noopener,noreferrer");
   };
+
   return (
-    <div className={`${darkMode && "dark"} border-t pt-1 border-black dark:border-white`}>
-      <p className="text-xl dark:text-white">Connect with me on:</p>
+    <div className={`${darkMode && "dark"} border-black dark:border-white`}>
+      <p className="text-xl dark:text-white">Connect with me</p>
       <div className="flex justify-between items-center">
         <div className="flex gap-x-6 text-4xl">
-          <IoLogoLinkedin
+          <FaLinkedin
             onClick={() => handleClick(linkedinUrl)}
-            className="hover:cursor-pointer transition transform ease-in-out duration-300 hover:scale-105"
+            className= " text-white text-3xl hover:cursor-pointer transition transform ease-in-out duration-300 hover:scale-105"
           />
-          <FaSquareGithub
+          <FaGithubSquare
             onClick={() => handleClick(githubUrl)}
-            className="hover:cursor-pointer transition transform ease-in-out duration-300 hover:scale-105"
+            className=" text-white text-3xl hover:cursor-pointer transition transform ease-in-out duration-300 hover:scale-105"
           />
-          <FaSquareXTwitter
+          <FaTwitter
             onClick={() => handleClick(twitterUrl)}
-            className="hover:cursor-pointer transition transform ease-in-out duration-300 hover:scale-105"
+            className=" text-white text-3xl hover:cursor-pointer transition transform ease-in-out duration-300 hover:scale-105"
           />
         </div>
-        <div className="text-2xl bg-black text-white dark:bg-white dark:text-black rounded-md p-1  cursor-pointer" onClick={toggleMode}>
+        <div
+          className="text-2xl bg-black text-white dark:bg-white dark:text-black rounded-md p-1 cursor-pointer"
+          onClick={toggleMode}
+        >
           {darkMode ? <MdOutlineLightMode /> : <MdDarkMode />}
         </div>
       </div>

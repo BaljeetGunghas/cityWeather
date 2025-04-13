@@ -45,8 +45,8 @@ const Aqi = ({ aqi }) => {
         </div>
       </div>
       <div className="flex items-center justify-center mt-2.5">
-        <h1 className="text-2xl text-center">{label}</h1>
-        <p className="text-xl">{emoji}</p>
+        <p className="text-sm text-center m-0">{label}</p>
+        <p className="text-sm">{emoji}</p>
       </div>
     </div>
   );
