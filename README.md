@@ -51,8 +51,6 @@
 ### 🌞 Forecast & Weather Details
 [Weather Forecast](https://upww.screenrec.com/images/f_wjya2leNOX84pYAVZdJf195SDuckK367.png)
 
-> Make sure the images are saved as `screenshot1.png` and `screenshot2.png` inside the `assets/` folder of your project directory.
-
 ---
 
 ## 📦 Installation
