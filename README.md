@@ -58,5 +58,5 @@
 Clone the repository:
 
 ```bash
-git clone https://github.com/avinashsingh108/WeatherCheck
+git clone https://github.com/BaljeetGunghas/cityWeather.git
 cd WeatherCheck
