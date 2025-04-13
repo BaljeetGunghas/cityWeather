@@ -1,52 +1,64 @@
-# Sky-Update 
+# 🌤️ City-Weather
 
-[Visit the Live Website](https://main--sky-update.netlify.app/)
+[Live Demo 🌐](https://baljeetcityweather.netlify.app/)
 
-Sky-Update is a weather application built using React. It allows users to search for weather information by location, view the forecast for the next 24 hours or 5 days, and get detailed weather metrics including temperature, humidity, wind speed, and air quality index (AQI).
+**City-Weather** is a sleek and responsive weather application built with **React** and **Tailwind CSS**. It provides real-time weather updates including temperature, humidity, wind speed, visibility, and Air Quality Index (AQI). Whether you're planning your day or a trip, City-Weather gives you the weather insights you need — right at your fingertips.
 
-## Features
+---
 
-- **Search Weather by Location**: Users can search for weather information by entering a place name.
-- **Current Location Weather**: Fetches and displays weather information for the user's current location.
-- **24-Hour and 5-Day Forecast**: Switch between a detailed 24-hour forecast and a summarized 5-day forecast.
-- **Weather Metrics**: Displays temperature, humidity, wind speed, AQI, and other weather-related metrics.
-- **Social Media Links**: Includes links to relevant social media profiles.
+## 🚀 Features
 
-## Technologies Used
+- 🔍 **Search by Location**  
+  Easily search for any city to get its current weather conditions.
 
-- **React**: JavaScript library for building user interfaces.
-- **Tailwind CSS**: Utility-first CSS framework for styling.
-- **Luxon**: Library for working with dates and times.
-- **React Icons**: Library for including icons in React projects.
-- **Geolocation API**: For fetching the user's current location.
-- **OpenWeatherMap API**: For fetching weather data.
+- 📍 **Current Location Weather**  
+  Automatically detects your location using the Geolocation API and shows local weather data.
 
-## Installation
+- ⏳ **24-Hour Forecast**  
+  View a detailed hourly forecast to plan your day effectively.
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/avinashsingh108/WeatherCheck
-   cd WeatherCheck
-2. Install the dependencies:
-   ```bash
-   npm install
+- 📅 **5-Day Forecast**  
+  Switch to a summarized 5-day forecast view for a broader outlook.
 
+- 🌡️ **Live Weather Metrics**  
+  Includes temperature, humidity, max/min temp, wind speed, pressure, UV index, visibility, and AQI.
 
-## Usage
+- 🗺️ **Live Weather Map**  
+  Interactive map powered by Leaflet and OpenStreetMap for geospatial visualization.
 
-1. Start the development server:
-    ```bash
-      npm run dev
+- 🔗 **Social Media Integration**  
+  Find social links and connect on various platforms.
 
-## Contributing
+---
 
-If you want to contribute to Sky-Update, please follow these steps:
+## 🛠️ Tech Stack
 
-1. Fork the repository.
-2. Create a new branch **(git checkout -b feature-branch)**.
-3. Make your changes and commit them **(git commit -m 'Add some feature')**.
-4. Push to the branch **(git push origin feature-branch)**.
-5. Open a pull request.
+- **React** – Frontend UI development  
+- **Tailwind CSS** – Utility-first styling  
+- **Luxon** – Date and time management  
+- **React Icons** – Icon set integration  
+- **Geolocation API** – Detects user location  
+- **OpenWeatherMap API** – Provides weather data  
+- **Leaflet + OpenStreetMap** – Displays live weather maps  
 
+---
 
+## 📸 Screenshots
 
+### 🔘 Location Prompt
+[Location Prompt](https://upww.screenrec.com/images/f_uHWpidFOvVTLrj4xI8JUBw3E0A2C7Y9R.png)
+
+### 🌞 Forecast & Weather Details
+[Weather Forecast](https://upww.screenrec.com/images/f_wjya2leNOX84pYAVZdJf195SDuckK367.png)
+
+> Make sure the images are saved as `screenshot1.png` and `screenshot2.png` inside the `assets/` folder of your project directory.
+
+---
+
+## 📦 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/avinashsingh108/WeatherCheck
+cd WeatherCheck
